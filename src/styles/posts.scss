@@ -1,0 +1,153 @@
+.postsContainer {
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+.postLikeImg {
+	display: flex;
+	align-items: center;
+
+	.likeImg {
+		width: 25px;
+		height: 25px;
+		cursor: pointer;
+		margin-right: 8px;
+	}
+}
+
+.postItem {
+	margin: 20px auto;
+	padding: 20px;
+	border-radius: 20px;
+	background-color: white;
+	width: 650px;
+	box-shadow: 3px 3px 2px gray;
+
+	.postHeader{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.postDate {
+		font-size: 12px;
+		text-align:start;
+	}
+
+	.postUserInfo {
+		display: flex;
+		width: 50%;
+		align-items: center;
+
+		.postUserInfoAvatar {
+			margin-right: 10px;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+		}
+	}
+
+	.postTitle {
+		font-weight: bold;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	.postLike {
+		font-size: 14px;
+		display: flex;
+		align-items: center;
+	}
+
+	.postSmall {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.postDescription {
+		margin: 10px;
+		text-align: center;
+	}
+
+	.postItemImageItem {
+		font-size: 25px;
+		cursor: pointer;
+		margin: 0 5px;
+	}
+
+	.editPost{
+		display: flex;
+		justify-content: center;
+		
+	}
+}
+
+.postPagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.editSaveBtnContainer {
+	text-align: center;
+
+	.editSaveBtn {
+		margin-top: 30px;
+		color: black;
+
+	}
+}
+
+.editPostDetailsInfo {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.postDetailsContainer {
+
+	width: 80%;
+	margin: 30px auto;
+
+	.postDetailsMainText {
+		background-color: white;
+		border-radius: 30px;
+		text-align: center;
+		padding: 15px;
+	}
+
+	.postDetailsMainContent {
+		width: 100%;
+		padding: 60px;
+		background-color: white;
+		border-radius: 30px;
+		display: flex;
+	}
+
+	.postImage {
+		width: 300px;
+		height: 300px;
+	}
+
+	.postFullText {
+		margin-top: 50px;
+	}
+
+	.postDetailsContent {
+		margin-left: 30px;
+	}
+
+	.postDetailsContent {
+		width: 100%;
+	}
+
+	.postDetailsInfo {
+		width: 100%;
+		margin-top: 150px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+}

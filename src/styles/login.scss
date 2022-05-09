@@ -1,0 +1,38 @@
+.loginContainer {
+	background-color: white;
+	margin: 0 auto;
+	text-align: center;
+	width: 400px;
+	height: 400px;
+	display: flex;
+	flex-direction: column;
+}
+
+.registerContainer {
+	background-color: white;
+	margin: 0 auto;
+	text-align: center;
+	padding: 75px 140px;
+	display: flex;
+	flex-direction: column;
+}
+
+.loginContent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 30px;
+	flex-direction: column;
+}
+
+.loginItem {
+	margin-bottom: 30px;
+}
+
+.loginLink {
+	color: black;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}

@@ -1,0 +1,16 @@
+.userItem {
+	margin: 30px;
+	display: flex;
+
+	.userItemImg {
+		width: 150px;
+		height: 150px
+	}
+
+	.userItemContent{
+		.userInfoItem{
+			margin: 10px;
+		}
+	}
+	
+}

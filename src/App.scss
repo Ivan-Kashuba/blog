@@ -1,0 +1,56 @@
+// Constants
+$authRegisterButtonBackground: #4bb34b;
+$authLoginButtonBackground:#1f88ff;
+// Global
+.authIn {
+	background-color: $authLoginButtonBackground;
+}
+.authUp {
+	background-color: $authRegisterButtonBackground;
+}
+.error{
+	color:red;
+	font-size: 16px;
+	font-weight: normal;
+}
+.success{
+	color:lightgreen;
+}
+.deleteBtn{
+	background-color: red;
+}
+.authBtn {
+	cursor: pointer;
+	padding: 10px 60px;
+	color: white;
+	&:hover {
+		color: black;
+		opacity: 0.8;
+	}
+}
+.textAreaItem{
+	margin-bottom: 20px 0;
+}
+
+//App
+@import "./styles/app.scss";
+// Auth
+@import "./styles/auth.scss";
+// Login
+@import "./styles/login.scss";
+// Navigation
+@import "./styles/navigation.scss";
+//Profile
+@import "./styles/profile.scss";
+//Users
+@import "./styles/user.scss";
+//Preloader
+@import "./styles/preloader.scss";
+//Settings
+@import "./styles/settings.scss";
+//Paginator
+@import "./styles/paginator.scss";
+//Posts
+@import "./styles/posts.scss";
+//Comments
+@import "./styles/comments.scss";

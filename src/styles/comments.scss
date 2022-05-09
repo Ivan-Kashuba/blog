@@ -1,0 +1,144 @@
+.comment{
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.commentsDetailsMainContent {
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	background-color: white;
+	border-radius: 30px;
+
+	.commentContainer {
+		padding: 10px 50px;
+		width: 60%;
+		margin: 0 auto;
+	}
+
+	.commentsMainText {
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
+
+	.commentTextArea {
+		border-radius: 15px;
+		padding: 5px;
+		width: 80%;
+		height: 60px;
+	}
+
+	.commentField {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.commentFieldForm {
+			width: 100%;
+		}
+
+		.commentFieldButton {
+			cursor: pointer;
+			background-color: #edeef0;
+			border-radius: 15px;
+			color: black;
+			padding: 20px 0;
+			width: 15%;
+			text-align: center;
+			box-shadow: 0px 0px 3px 3px lightblue;
+		}
+
+		.commentFieldButton:hover {
+			box-shadow: none;
+		}
+	}
+
+	.commentItem {
+		display: flex;
+		justify-content: space-between;
+		margin: 15px 0;
+		background-color: #edeef0;
+		padding: 20px;
+		border-radius: 15px;
+		margin-left: 5px;
+	}
+
+	.commentUserImage{
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+	}
+
+	.commentLike {
+		display: flex;
+		align-items: center;
+		margin-left: 25px;
+
+		.commentChangeContainer {
+			margin: 0 10px;
+			display: flex;
+
+			.commentChangeIcon {
+				font-size: 20px;
+				cursor: pointer;
+				margin-left: 10px;
+			}
+		}
+
+		.commentLikeItem {
+			display: flex;
+			align-items: center;
+		}
+
+		.commentLikeIcon {
+			cursor: pointer;
+			width: 20px;
+			height: 20px;
+			margin-left: 10px;
+		}
+	}
+
+}
+
+.commentEditButton {
+	margin-left: 10px;
+	background-color: lightgray;
+	color: black;
+	padding: 10px 30px;
+
+}
+
+.editCommentForm {
+	width: 100%;
+}
+
+.commentReply {
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.subComment{
+	margin-left: 50px;
+}
+
+.subComments{
+	margin-top: 20px;
+}
+
+.editMessageForm{
+	width: 60%;
+
+	.editMessageFormButton {
+		cursor: pointer;
+		background-color: #edeef0;
+		border-radius: 15px;
+		color: black;
+		padding: 5px 0;
+		width: 15%;
+		text-align: center;
+		box-shadow: none;
+	}
+
+}

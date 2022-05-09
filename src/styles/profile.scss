@@ -1,0 +1,33 @@
+.profileContainer {
+	padding: 15px;
+}
+
+.profileUserIcon {
+	width: 500px;
+	height: 500px;
+	border: 15px solid white;
+	border-radius: 50%;
+}
+
+.profileMainContent {
+	display: flex;
+	position: relative;
+
+	.profileChangeAvatar {
+		bottom: -30px;
+		left: 130px;
+		position: absolute;
+	}
+}
+
+.profileContent {
+	margin-left: 60px;
+	width: 60%;
+	border: 15px solid white;
+	border-radius: 15px;
+	background-color: white;
+
+	.profileContentItem {
+		margin: 5px;
+	}
+}
