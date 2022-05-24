@@ -1,26 +1,14 @@
 import { ChangeEvent, useEffect } from "react";
-import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import PostEdit from "./PostEdit";
-import { getChoosenPost } from "../../store/reducers/posts-reducer";
 import { postsAPI } from "../../api/api";
-import { updatePostImage } from "../../store/reducers/posts-reducer";
 import Preloader from "../../components/Preloader/Preloader";
-import { Post } from "../../types/models";
-import { AppStateType } from "../../store/store";
 import { setPostsPayload_T } from "../../types/reducers";
+import { usePosts } from "../../hooks/usePosts";
 
-type props_T = {
-  post: Post;
-  getChoosenPost: (postId: string) => Promise<void>;
-  updatePostImage: (postId: string, imgData: FormData) => Promise<void>;
-};
+export const PostEditContainer = () => {
+  const { post, updatePostImage, getChoosenPost } = usePosts();
 
-const PostEditContainer = ({
-  post,
-  getChoosenPost,
-  updatePostImage,
-}: props_T) => {
   const navigation = useNavigate();
   const { postId } = useParams();
 
@@ -55,11 +43,3 @@ const PostEditContainer = ({
     />
   );
 };
-
-const mapStateToProps = (state: AppStateType) => ({
-  post: state.posts.posts,
-});
-
-export default connect(mapStateToProps, { getChoosenPost, updatePostImage })(
-  PostEditContainer
-);

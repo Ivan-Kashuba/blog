@@ -13,7 +13,7 @@ const GET__POSTS = "GET__POSTS";
 const GET__CHOOSEN__POST = "GET__CHOOSEN__POST";
 
 const initialState: postsInitialState_T = {
-  posts: {
+  post: {
     _id: "",
     title: null,
     fullText: null,
@@ -50,7 +50,7 @@ const PostsReducer = createReducer(initialState, (builder) => {
       (state, action: setChoosenPost_T): postsInitialState_T => {
         return {
           ...state,
-          posts: { ...action.payload },
+          post: { ...action.payload },
         };
       }
     );

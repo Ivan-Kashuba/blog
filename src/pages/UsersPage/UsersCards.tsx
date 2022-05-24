@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Draggable, DroppableId, DropResult } from "react-beautiful-dnd";
-import { Droppable } from "react-beautiful-dnd";
-import { DragDropContext } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
 import UserItem from "./UserItem";
 import { User } from "../../types/models";
-
-type props_T = {
-  users: Array<User>;
-};
+import { useUsers } from "../../hooks/useUsers";
 
 type columns_T = {
   id: string;
@@ -15,7 +15,9 @@ type columns_T = {
   items: Array<User>;
 };
 
-const UsersCards = ({ users }: props_T) => {
+const UsersCards = () => {
+  const { users } = useUsers();
+
   const [columns, setColumns] = useState<Array<columns_T>>([]);
   useEffect(() => {
     setColumns([

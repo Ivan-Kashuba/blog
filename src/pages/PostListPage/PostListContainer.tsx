@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { getAllPosts } from "../../store/reducers/posts-reducer";
 import PostList from "./PostList";
-import { AppStateType } from "../../store/store";
-import { Post } from "../../types/models";
-import { pagination_T } from "../../types/reducers";
+import { usePosts } from "../../hooks/usePosts";
 
-type props_T = {
-  getAllPosts: (
-    searchText?: string,
-    id?: string,
-    limit?: number,
-    skip?: number
-  ) => void;
-  posts: Array<Post>;
-  pagination: pagination_T;
-};
+export const PostListContainer = () => {
+  const { postsArr, pagination, getAllPosts } = usePosts();
 
-const PostListContainer = ({ getAllPosts, posts, pagination }: props_T) => {
   const { limit, total } = pagination;
-  const [currentPage, setcurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [inputText, setInputText] = useState("");
   useEffect(() => {
     getAllPosts();
   }, []);
   const onPageChanged = (pageNumber: number) => {
     getAllPosts("", "", limit!, pageNumber * limit!);
-    setcurrentPage(pageNumber + 1);
+    setCurrentPage(pageNumber + 1);
   };
 
   const onFindPress = () => {
@@ -46,7 +33,7 @@ const PostListContainer = ({ getAllPosts, posts, pagination }: props_T) => {
       onPageChanged={onPageChanged}
       limit={limit!}
       total={total!}
-      posts={posts}
+      posts={postsArr}
       inputText={inputText}
       onFindPress={onFindPress}
       setInputText={setInputText}
@@ -54,9 +41,3 @@ const PostListContainer = ({ getAllPosts, posts, pagination }: props_T) => {
     />
   );
 };
-
-const mapStateToProps = (state: AppStateType) => ({
-  posts: state.posts.postsArr,
-  pagination: state.posts.pagination,
-});
-export default connect(mapStateToProps, { getAllPosts })(PostListContainer);

@@ -1,46 +1,19 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { commentsAPI, postsAPI } from "../../api/api";
 import Preloader from "../../components/Preloader/Preloader";
-import { getChoosenPost } from "../../store/reducers/posts-reducer";
 import PostDetails from "./PostDetails";
-import { getCurrentUser } from "../../store/reducers/auth-reducer";
 import Comments from "./Comments/Comments";
-import { getComments } from "../../store/reducers/comments-reducer";
-import {
-  createComment,
-  updateComment,
-} from "../../store/reducers/comments-reducer";
 import { findLikeStatus } from "../../utils/likeStatus";
-import { Comment, Post, User } from "../../types/models";
-import { AppStateType } from "../../store/store";
+import { usePosts } from "../../hooks/usePosts";
+import { useComments } from "../../hooks/useComments";
+import { useAuth } from "../../hooks/useAuth";
 
-type props_T = {
-  post: Post;
-  getChoosenPost: (postId: string) => void;
-  getCurrentUser: () => void;
-  currentUser: User;
-  getComments: (postId: string) => void;
-  postComments: Array<Comment>;
-  createComment: (
-    postId: string,
-    text: string,
-    comentId: string | null
-  ) => void;
-  updateComment: (commentId: string, text: string) => void;
-};
+export const PostDetailContainer = () => {
+  const { post, getChoosenPost } = usePosts();
+  const { comments, getComments, createComment, updateComment } = useComments();
+  const { getCurrentUser, currentUser } = useAuth();
 
-const PostDetailContainer = ({
-  post,
-  getChoosenPost,
-  getCurrentUser,
-  currentUser,
-  getComments,
-  postComments,
-  createComment,
-  updateComment,
-}: props_T) => {
   const { postId } = useParams();
 
   useEffect(() => {
@@ -85,7 +58,7 @@ const PostDetailContainer = ({
     <>
       <PostDetails post={post} likePost={likePost} isLikedPost={isLikedPost} />
       <Comments
-        postComments={postComments}
+        postComments={comments}
         addComment={addComment}
         currentUserId={currentUser._id as string}
         deleteComment={deleteComment}
@@ -95,17 +68,3 @@ const PostDetailContainer = ({
     </>
   );
 };
-
-const mapStateToProps = (state: AppStateType) => ({
-  post: state.posts.posts,
-  currentUser: state.auth,
-  postComments: state.comments.comments,
-});
-
-export default connect(mapStateToProps, {
-  getChoosenPost,
-  getCurrentUser,
-  getComments,
-  createComment,
-  updateComment,
-})(PostDetailContainer);

@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Preloader from "../../components/Preloader/Preloader";
 import Paginator from "../../components/Paginator/Paginator";
 import UsersCards from "./UsersCards";
 import UserGraph from "./UserGraph";
-import { User } from "../../types/models";
+import { useUsers } from "../../hooks/useUsers";
+import { pagination_T } from "../../types/reducers";
 
-type props_T = {
-  users: Array<User>;
-  pageSize: number;
-  totalItemsCount: number;
-  onPageChanged: (pageNumber: number) => void;
-  currentPage: number;
-  allUsers: Array<User>;
-};
+export const Users = () => {
+  const { users, pagination, getUsers, getAllUsers } = useUsers();
+  const { limit, skip, total } = pagination as pagination_T;
 
-const Users = ({
-  users,
-  pageSize,
-  totalItemsCount,
-  onPageChanged,
-  currentPage,
-  allUsers,
-}: props_T) => {
+  useEffect(() => {
+    getUsers(limit as number, skip as number);
+  }, []);
+
+  useEffect(() => {
+    getAllUsers(total as number, 0);
+  }, [total]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const onPageChanged = (pageNumber: number) => {
+    getUsers(limit!, pageNumber * limit!);
+    setCurrentPage(pageNumber + 1);
+  };
+
   if (users.length === 0) {
     return <Preloader />;
   } else
@@ -30,13 +32,11 @@ const Users = ({
         <Paginator
           currentPage={currentPage}
           onPageChanged={onPageChanged}
-          totalItemsCount={totalItemsCount}
-          pageSize={pageSize}
+          totalItemsCount={total as number}
+          pageSize={limit as number}
         />
-        <UserGraph allUsers={allUsers} />
-        <UsersCards users={users} />
+        <UserGraph />
+        <UsersCards />
       </>
     );
 };
-
-export default Users;

@@ -1,18 +1,16 @@
-import React, { ChangeEvent, useState } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
 import PostForm from "./PostForm";
 import { createPost } from "../../store/reducers/posts-reducer";
 import { setPostsPayload_T } from "../../types/reducers";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
-type props_T = {
-  createPost: (postInfo: setPostsPayload_T) => Promise<void>;
-};
+export const PostsContainer = () => {
+  const dispatch = useAppDispatch();
 
-const PostsContainer = ({ createPost }: props_T) => {
   const [error, setError] = useState("");
 
   const createPostHandler = (postInfo: setPostsPayload_T) => {
-    createPost(postInfo).catch((e) => {
+    dispatch(createPost(postInfo)).catch((e) => {
       setError(
         e.response.data.error[0].message
           ? e.response.data.error[0].message
@@ -20,6 +18,7 @@ const PostsContainer = ({ createPost }: props_T) => {
       );
     });
   };
+
   return (
     <div>
       <PostForm
@@ -30,5 +29,3 @@ const PostsContainer = ({ createPost }: props_T) => {
     </div>
   );
 };
-
-export default connect(null, { createPost })(PostsContainer);

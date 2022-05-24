@@ -1,20 +1,19 @@
 import React from "react";
 import PostItem from "../PostItem/PostItem";
-import PostsContainer from "../Posts/PostsContainer";
+import { PostsContainer } from "../Posts/PostsContainer";
 import Preloader from "../../components/Preloader/Preloader";
 import ProfileContent from "./ProfileContent";
 import ProfileForm from "./ProfileForm";
 import defaultAvatar from "./../../img/defaultAvatar.png";
 import { Post, User } from "../../types/models";
-import { updateAccountPayload_T } from "../../api/api";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { updateAvatar } from "../../store/reducers/auth-reducer";
 
 type props_T = {
   currentUser: User;
   editMode: boolean;
   handleEditMode: (status: boolean) => void;
   userId: string;
-  updateCurrentUser: (userId: string, userData: updateAccountPayload_T) => void;
-  updateAvatar: (userId: string, avatar: FormData) => void;
   userPosts: Array<Post>;
   deletePost: (postId: string) => void;
   addPostMode: boolean;
@@ -26,18 +25,18 @@ const Profile = ({
   editMode,
   handleEditMode,
   userId,
-  updateCurrentUser,
-  updateAvatar,
   userPosts,
   deletePost,
   addPostMode,
   handleAddPostMode,
 }: props_T) => {
+  const dispatch = useAppDispatch();
+
   const formData = new FormData();
   const onMainPhotoSelected = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
       formData.append("avatar", event.target.files[0]);
-      updateAvatar(currentUser._id as string, formData);
+      dispatch(updateAvatar(currentUser._id as string, formData));
     }
   };
 
@@ -73,7 +72,6 @@ const Profile = ({
             <ProfileForm
               currentUser={currentUser}
               handleEditMode={handleEditMode}
-              updateCurrentUser={updateCurrentUser}
             />
           ) : (
             <div>

@@ -1,31 +1,29 @@
 import "./App.scss";
 import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
-import LoginContainer from "./pages/LoginPage/LoginContainer";
+import { LoginContainer } from "./pages/LoginPage/LoginContainer";
 import Auth from "./pages/AuthPage/Auth";
-import RegistrationContainer from "./pages/RegistrationPage/RegistrationContainer";
+import { RegistrationContainer } from "./pages/RegistrationPage/RegistrationContainer";
 import SuccessRegistration from "./pages/SuccessRegistration/SuccessRegistration";
 import Navigation from "./components/Navigation/Navigation";
-import ProfileContainer from "./pages/ProfilePage/ProfileContainer";
-import { connect, useSelector } from "react-redux";
+import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
+import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { setAuth } from "./store/reducers/auth-reducer";
-import UsersContainer from "./pages/UsersPage/UsersContainer";
-import SettingsContainer from "./pages/SettingsPage/SettingsContainer";
-import PostListContainer from "./pages/PostListPage/PostListContainer";
-import PostDetailContainer from "./pages/PostDetailPage/PostDetailContainer";
-import PostEditContainer from "./pages/PostEditPage/PostEditContainer";
-import { AppStateType } from "./store/store";
-import { compose } from "redux";
+import { PostListContainer } from "./pages/PostListPage/PostListContainer";
+import { PostDetailContainer } from "./pages/PostDetailPage/PostDetailContainer";
+import { PostEditContainer } from "./pages/PostEditPage/PostEditContainer";
+import { getIsAuth_S } from "./selectors/auth-selector";
+import { useAppDispatch } from "./hooks/useAppDispatch";
+import { Users } from "./pages/UsersPage/Users";
+import { Settings } from "./pages/SettingsPage/Settings";
 
-type props_T = {
-  isAuth: boolean;
-  setAuth: (status: boolean) => void;
-};
+export const App = () => {
+  const isAuth = useSelector(getIsAuth_S);
+  const dispatch = useAppDispatch();
 
-const App = ({ isAuth, setAuth }: props_T) => {
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      setAuth(false);
+      dispatch(setAuth(false));
     }
   }, [isAuth]);
 
@@ -49,18 +47,18 @@ const App = ({ isAuth, setAuth }: props_T) => {
       </div>
       <div className="app__wrapper__content">
         <Routes>
-          <Route element={<PrivateAuth isAuth={isAuth} />}>
-            <Route path="/settings" element={<SettingsContainer />} />
+          <Route element={<PrivateAuth isAuth={isAuth as boolean} />}>
+            <Route path="/settings" element={<Settings />} />
             <Route path="/profile">
-              <Route path="" element={<ProfileContainer />} />
-              <Route path=":userId" element={<ProfileContainer />} />
+              <Route path="" element={<ProfilePage />} />
+              <Route path=":userId" element={<ProfilePage />} />
             </Route>
           </Route>
           <Route path="/" element={<Auth />} />
           <Route path="/login" element={<LoginContainer />} />
           <Route path="/registration" element={<RegistrationContainer />} />
           <Route path="reg-success" element={<SuccessRegistration />} />
-          <Route path="/users" element={<UsersContainer />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/posts">
             <Route path="" element={<PostListContainer />} />
             <Route path=":postId" element={<PostDetailContainer />} />
@@ -71,11 +69,3 @@ const App = ({ isAuth, setAuth }: props_T) => {
     </div>
   );
 };
-
-const mapStateToProps = (state: AppStateType) => ({
-  isAuth: state.auth.isAuth,
-});
-
-export default compose<React.ComponentType>(
-  connect(mapStateToProps, { setAuth })
-)(App);

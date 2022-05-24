@@ -1,16 +1,13 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
-import { User } from "../../types/models";
 import { CategoryScale } from "chart.js";
+import { useUsers } from "../../hooks/useUsers";
 
 Chart.register(CategoryScale);
 
-type props_T = {
-  allUsers: Array<User>;
-};
-
-const UserGraph = ({ allUsers }: props_T) => {
+const UserGraph = () => {
+  const { allUsers } = useUsers();
   let users2021Count = 0;
   let users2022Count = 0;
   let total = 0;

@@ -100,11 +100,11 @@ export const postsAPI = {
   },
 
   updatePost(id: string, postInfo: setPostsPayload_T) {
-    return instance.patch(`posts/${id}`, postInfo);
+    return instance.patch(`posts/${id}`, postInfo, loginSuccess);
   },
 
   updatePostImage(id: string, image: FormData) {
-    return instance.put(`posts/upload/${id}`, image);
+    return instance.put(`posts/upload/${id}`, image, updateAvatarConfig);
   },
 
   postLike(id: string) {

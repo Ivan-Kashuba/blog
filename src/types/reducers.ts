@@ -35,7 +35,7 @@ export type pagination_T = {
 };
 
 export type postsInitialState_T = {
-  posts: Post;
+  post: Post;
   pagination: pagination_T;
   postsArr: Array<Post>;
 };

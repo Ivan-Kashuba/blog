@@ -2,13 +2,11 @@ import Login from "./Login";
 import { setAuth } from "../../store/reducers/auth-reducer";
 import { authAPI, loginParams_T } from "../../api/api";
 import { useNavigate } from "react-router-dom";
-import { connect } from "react-redux";
 import { useState } from "react";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
-type props_T = {
-  setAuth: (status: boolean) => void;
-};
-export const LoginContainer = ({ setAuth }: props_T) => {
+export const LoginContainer = () => {
+  const dispatch = useAppDispatch();
   const [error, setError] = useState("");
   const navigation = useNavigate();
 
@@ -18,11 +16,9 @@ export const LoginContainer = ({ setAuth }: props_T) => {
     });
 
     localStorage.setItem("token", `Bearer ${response?.data.token}`);
-    setAuth(true);
+    dispatch(setAuth(true));
     navigation("/profile");
   };
 
   return <Login login={login} error={error} />;
 };
-
-export default connect(null, { setAuth })(LoginContainer);

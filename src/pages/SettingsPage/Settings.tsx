@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { usersAPI } from "../../api/api";
+import { useAuth } from "../../hooks/useAuth";
+import { setAuth } from "../../store/reducers/auth-reducer";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
-type props_T = {
-  _id: string;
-  deleteUser: (userId: string) => void;
-  message: string;
-};
+export const Settings = () => {
+  const dispatch = useAppDispatch();
+  const { currentUserId, getCurrentUser } = useAuth();
 
-const Settings = ({ _id, deleteUser, message }: props_T) => {
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    getCurrentUser();
+  }, [currentUserId]);
+
+  const deleteUser = async () => {
+    let response = await usersAPI.deleteAccount(currentUserId);
+    setMessage(response.data.message);
+    localStorage.removeItem("token");
+    dispatch(setAuth(false));
+  };
+
   return (
     <div className="settingsContainer">
       To delete current account press button:
       <div className="settingsDelete">
-        <button onClick={() => deleteUser(_id)} className="authBtn deleteBtn">
+        <button onClick={() => deleteUser()} className="authBtn deleteBtn">
           Delete
         </button>
         <div className="error">{message ? message : null}</div>
@@ -19,5 +32,3 @@ const Settings = ({ _id, deleteUser, message }: props_T) => {
     </div>
   );
 };
-
-export default Settings;

@@ -72,7 +72,7 @@ const setRegisteredUsers = (payload: User): setRegisteredUsers_T => ({
   payload,
 });
 
-type setUsers_T = {
+export type setUsers_T = {
   type: typeof SET__USERS;
   payload: setUsersPayload_T;
 };

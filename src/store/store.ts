@@ -8,13 +8,13 @@ import CommentsReducer from "./reducers/comments-reducer";
 const rootReducer = combineReducers({
   auth: AuthReducer,
   users: UsersReducer,
-  posts: PostsReducer,
+  post: PostsReducer,
   comments: CommentsReducer,
 });
 
 type RootReducerType = typeof rootReducer;
 export type AppStateType = ReturnType<RootReducerType>;
-
+export type AppDispatch = typeof store.dispatch;
 const store = configureStore({ reducer: rootReducer });
 
 export default store;
