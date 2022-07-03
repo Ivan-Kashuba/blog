@@ -5,17 +5,6 @@ const instance = axios.create({
   baseURL: "http://test-blog-api.ficuslife.com/api/v1/",
 });
 
-const updateAvatarConfig = {
-  headers: {
-    Authorization: localStorage.getItem("token") as string,
-    "Content-Type": "multipart/form-data",
-  },
-};
-
-const loginSuccess = {
-  headers: { Authorization: localStorage.getItem("token") as string },
-};
-
 export type loginParams_T = {
   email: string;
   password: string;
@@ -68,21 +57,34 @@ export const usersAPI = {
   },
 
   deleteAccount(id: string) {
-    return instance.delete(`users/${id}`, loginSuccess);
+    return instance.delete(`users/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") as string },
+    });
   },
 
   updateAccount(id: string, updatedInfo: updateAccountPayload_T) {
-    return instance.patch(`users/${id}`, { ...updatedInfo }, loginSuccess);
+    return instance.patch(
+      `users/${id}`,
+      { ...updatedInfo },
+      { headers: { Authorization: localStorage.getItem("token") as string } }
+    );
   },
 
   updateAvatar(id: string, avatarFile: FormData) {
-    return instance.put(`users/upload/${id}`, avatarFile, updateAvatarConfig);
+    return instance.put(`users/upload/${id}`, avatarFile, {
+      headers: {
+        Authorization: localStorage.getItem("token") as string,
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
 };
 
 export const postsAPI = {
   createPost(postInfo: setPostsPayload_T) {
-    return instance.post("/posts", postInfo, loginSuccess);
+    return instance.post("/posts", postInfo, {
+      headers: { Authorization: localStorage.getItem("token") as string },
+    });
   },
 
   getAllPosts(searchText = "", id = "", limit = 10, skip = 0) {
@@ -96,19 +98,30 @@ export const postsAPI = {
   },
 
   deletePost(id: string) {
-    return instance.delete(`posts/${id}`, loginSuccess);
+    return instance.delete(`posts/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") as string },
+    });
   },
 
   updatePost(id: string, postInfo: setPostsPayload_T) {
-    return instance.patch(`posts/${id}`, postInfo, loginSuccess);
+    return instance.patch(`posts/${id}`, postInfo, {
+      headers: { Authorization: localStorage.getItem("token") as string },
+    });
   },
 
   updatePostImage(id: string, image: FormData) {
-    return instance.put(`posts/upload/${id}`, image, updateAvatarConfig);
+    return instance.put(`posts/upload/${id}`, image, {
+      headers: {
+        Authorization: localStorage.getItem("token") as string,
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
 
   postLike(id: string) {
-    return instance.put(`posts/like/${id}`, null, loginSuccess);
+    return instance.put(`posts/like/${id}`, null, {
+      headers: { Authorization: localStorage.getItem("token") as string },
+    });
   },
 };
 
@@ -124,19 +137,27 @@ export const commentsAPI = {
         text: text,
         followedCommentID: commentId,
       },
-      loginSuccess
+      { headers: { Authorization: localStorage.getItem("token") as string } }
     );
   },
 
   deleteComment(commentId: string) {
-    return instance.delete(`comments/${commentId}`, loginSuccess);
+    return instance.delete(`comments/${commentId}`, {
+      headers: { Authorization: localStorage.getItem("token") as string },
+    });
   },
 
   updateComment(commentId: string, text: string) {
-    return instance.patch(`comments/${commentId}`, { text }, loginSuccess);
+    return instance.patch(
+      `comments/${commentId}`,
+      { text },
+      { headers: { Authorization: localStorage.getItem("token") as string } }
+    );
   },
 
   likeComment(commentId: string) {
-    return instance.put(`comments/like/${commentId}`, null, loginSuccess);
+    return instance.put(`comments/like/${commentId}`, null, {
+      headers: { Authorization: localStorage.getItem("token") as string },
+    });
   },
 };

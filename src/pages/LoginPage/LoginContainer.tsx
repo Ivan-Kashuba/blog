@@ -6,19 +6,20 @@ import { useState } from "react";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 export const LoginContainer = () => {
-  const dispatch = useAppDispatch();
-  const [error, setError] = useState("");
-  const navigation = useNavigate();
+	const dispatch = useAppDispatch();
+	const [error, setError] = useState("");
+	const navigation = useNavigate();
 
-  const login = async (loginObject: loginParams_T) => {
-    const response = await authAPI.login(loginObject).catch((err) => {
-      setError(err.response.data.error);
-    });
+	const login = async (loginObject: loginParams_T) => {
+		const response = await authAPI.login(loginObject).catch((err) => {
+			setError(err.response.data.error);
+		});
+		if (response?.data.token) {
+			localStorage.setItem("token", `Bearer ${response?.data.token}`);
+			dispatch(setAuth(true));
+			navigation("/profile");
+		}
+	};
 
-    localStorage.setItem("token", `Bearer ${response?.data.token}`);
-    dispatch(setAuth(true));
-    navigation("/profile");
-  };
-
-  return <Login login={login} error={error} />;
+	return <Login login={login} error={error} />;
 };
